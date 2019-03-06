@@ -89,6 +89,7 @@ class PinnacleClient():
 				"team":bet['team'],	#Team1 or Team2
 				"oddsFormat":"DECIMAL"
 		}
+		print("pinnacle.place_bet with data: {}".format(data))
 		return http_post(url, data = data, headers = self.postHeaders)
 
 	def placeBet(self, sportId, eventId, lineId, period, betType, team, stake):

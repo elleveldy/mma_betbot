@@ -67,8 +67,8 @@ class JsonFileHandler():
 
 
 def file_get_username(filename):
-	file = open(str(filename),"r")
 	try:
+		file = open(str(filename),"r")
 		file_content = json.load(file)
 		username = file_content["username"]
 		file.close()
@@ -79,8 +79,8 @@ def file_get_username(filename):
 		return username
 
 def file_get_password(filename):
-	file = open(str(filename),"r")			
 	try:
+		file = open(str(filename),"r")			
 		file_content = json.load(file)
 		print(file_content)
 		password = file_content["password"]
@@ -93,8 +93,9 @@ def file_get_password(filename):
 
 def file_generate(filename):
 	print("Couldn't find account_info.txt file, creating one now...")
-	file_content = {"username": "ED974228",
-					"password": "#B0tSw4g9"
+	file_content = {
+		"username": "ED974228",
+		"password": "#B0tSw4g9"
 	}
 	# username = input("Type username and press enter...")	
 	# password = input("Type password and press enter...")

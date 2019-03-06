@@ -25,10 +25,8 @@ class BetMMATipsEvent:
 
 	def getDate(self):
 		date_string = str(self.soup.find("h2")).split("<br/>")[1].strip("</h2>")
-		printYellow("returning from getDate with tag: {}".format(date_string))
 		if not date_string:
-			printYellow("self.soup.find('h2') = ".format(self.soup))
-			printError(self.soup)
+			printYellow("getDate() returning with empty date string for event: {}".format(self.eventDictionary["name"]))
 		return date_string
 
 	def getEventName(self):
@@ -52,7 +50,8 @@ class BetMMATipsEvent:
 			if not t % 2:
 				if fighter.fighterName != None:
 					# print "fight != None:", fight
-					fighterPair.append({fighter.fighterName: fighter.acceptableOdds})
+					# fighterPair.append({fighter.fighterName: fighter.acceptableOdds})
+					fighterPair.append({"name": fighter.fighterName, "odds": fighter.acceptableOdds})
 				else:
 					# print "fight == None:", fight
 					fighterPair.append(None)
@@ -60,7 +59,8 @@ class BetMMATipsEvent:
 			else:
 				fighterPair = []
 				if fighter.fighterName != None:
-					fighterPair.append({fighter.fighterName: fighter.acceptableOdds})
+					# fighterPair.append({fighter.fighterName: fighter.acceptableOdds})
+					fighterPair.append({"name": fighter.fighterName, "odds": fighter.acceptableOdds})
 				else:
 					fighterPair.append(None)
 		return fighterAvgAcceptableOddsDict
