@@ -24,7 +24,11 @@ class BetMMATipsEvent:
 		self.eventDictionary["fights"] = self.getEventDictionary()
 
 	def getDate(self):
-		date_string = self.soup.find("h2").find("br").get_text()
+		date_string = str(self.soup.find("h2")).split("<br/>")[1].strip("</h2>")
+		printYellow("returning from getDate with tag: {}".format(date_string))
+		if not date_string:
+			printYellow("self.soup.find('h2') = ".format(self.soup))
+			printError(self.soup)
 		return date_string
 
 	def getEventName(self):
