@@ -1,9 +1,7 @@
 from pinnacle_client import PinnacleClient
 from colored_printing import *
-from json_file_handler import JsonFileHandler
+from json_file_handler import JsonFileHandler, file_get_password, file_get_username
 
-username = "ED974228"
-password = "#B0tSw4g9"
 
 #TODO: Edit the get functions such that they utilize the since paramter.
 
@@ -154,6 +152,8 @@ class MMAPinnacleClient(PinnacleClient):
 		}
 		self.place_bet(pinnacle_client_bet, stake)
 
+username = file_get_username("account_info.txt")
+password = file_get_password("account_info.txt")
 client = MMAPinnacleClient(username, password)
 
 print("mma id == {}".format(client.sports_id))

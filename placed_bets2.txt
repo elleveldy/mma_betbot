@@ -1,0 +1,10 @@
+[
+    {
+        "eventId": null,
+        "fighterName": "Lewis",
+        "leagueName": "UFC",
+        "lineId": null,
+        "odds": null,
+        "team": "home"
+    }
+]

@@ -5,9 +5,7 @@ import base64
 import uuid
 import json
 from httpRequests import *
-import pprint
 
-MLB_league_id = 246
 
 class PinnacleClient():
 	def __init__(self, username, password):

@@ -1,2 +1,5 @@
 #Ignore text files
 .txt
+
+#ignore pyc files
+.pyc
