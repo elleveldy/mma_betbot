@@ -1,5 +1,5 @@
 #Ignore text files
-.txt
+*.txt
 
 #ignore pyc files
-.pyc
+*.pyc
