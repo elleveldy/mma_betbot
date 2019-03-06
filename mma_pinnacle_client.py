@@ -1,9 +1,8 @@
-from pinnacleClient import PinnacleClient
+from pinnacle_client import PinnacleClient
 from colored_printing import *
+from json_file_handler import JsonFileHandler
 
-from mma_event_file_handler import JsonFileHandler
 
-import json
 
 username = "ED974228"
 password = "#B0tSw4g9"
@@ -185,7 +184,7 @@ print("line odds for JDS = ", jds_odds)
 
 mma_bet = client.mma_get_bet("UFC", "Lewis")
 
-placed_bets_file = JsonFileHandler("placed_bets2.json")
+placed_bets_file = JsonFileHandler("placed_bets2.txt")
 
 placed_bets_file.write(mma_bet)
 

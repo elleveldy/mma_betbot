@@ -13,9 +13,11 @@ import json
 
 def average(lst):
 	if(lst):
-		return sum(lst) / len(lst)
+		try:
+			return sum(lst) / len(lst)
+		except:
+			printError("average(lst error with lst ==".format(lst))
 	else:
-		printError("average(lst) called with empty list, returning 0")
 		return 0
 
 class MMAEvent:
@@ -154,11 +156,14 @@ class UserBets():
 	def getFigherName(self):
 		fighterElement = self.fight.find('em')
 		try:
-			fighterString = fighterElement.get_text()
-			fighterName = fighterString.split(" ")[1]
-			return fighterName
+			if fighterElement:
+				fighterString = fighterElement.get_text()
+				fighterName = fighterString.split(" ")[1]
+				return fighterName
+			else:
+				return None
 		except:
-			printError("Couldn't get fighter name")
+			printError("getFighterName error: Couldn't get fighter name") 
 			return None
 
 
@@ -234,7 +239,8 @@ class UserBets():
 		"""
 		if username in self.userProfits:
 			try:
-				return int(self.userProfits[username])
+				if self.userProfits[username]:
+					return int(self.userProfits[username])
 			except TypeError:
 				printError("userProfit TypeError with username = {} and\nself.userProfits = {}".format(username, self.userProfits))
 		else:

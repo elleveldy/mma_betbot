@@ -2,7 +2,7 @@
 
 from mma_event_acceptable_odds import *
 
-from mma_event_file_handler import JsonFileHandler
+from json_file_handler import JsonFileHandler
 
 
 
@@ -49,7 +49,4 @@ def get_free_betting_tip_urls():
 
 
 
-update_acceptable_odds("events3.json")
-
-
-
+update_acceptable_odds("events4.txt")

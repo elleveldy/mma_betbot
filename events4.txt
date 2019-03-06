@@ -1,6 +1,6 @@
 [
     {
-        "date": "9th Mar 2019", 
+        "date": "", 
         "fights": [
             [
                 {
@@ -20,7 +20,7 @@
             ], 
             [
                 {
-                    "Dariush": 1.5740000000000003
+                    "Dariush": 1.5728571428571427
                 }, 
                 {
                     "Dober": 0.0
@@ -36,10 +36,10 @@
             ], 
             [
                 {
-                    "Price": 2.665
+                    "Price": 2.7533333333333334
                 }, 
                 {
-                    "Means": 1.5825
+                    "Means": 1.572
                 }
             ], 
             [
@@ -109,7 +109,7 @@
         "organization": "UFC"
     }, 
     {
-        "date": "16th Mar 2019", 
+        "date": "", 
         "fights": [
             [
                 {
@@ -194,7 +194,7 @@
         "organization": "UFC"
     }, 
     {
-        "date": "3rd Mar 2019", 
+        "date": "", 
         "fights": [
             [
                 {
@@ -251,7 +251,7 @@
         "organization": "UFC"
     }, 
     {
-        "date": "30th Mar 2019", 
+        "date": "", 
         "fights": [
             [
                 null, 
@@ -292,7 +292,7 @@
         "organization": "UFC"
     }, 
     {
-        "date": "13th Apr 2019", 
+        "date": "", 
         "fights": [
             [
                 {
@@ -339,7 +339,7 @@
         "organization": "UFC"
     }, 
     {
-        "date": "7th Apr 2019", 
+        "date": "", 
         "fights": [
             [
                 null, 
@@ -378,7 +378,7 @@
         "organization": "UFC"
     }, 
     {
-        "date": "4th May 2019", 
+        "date": "", 
         "fights": [
             [
                 null, 
@@ -393,7 +393,7 @@
         "organization": "UFC"
     }, 
     {
-        "date": "11th May 2019", 
+        "date": "", 
         "fights": [
             [
                 {
