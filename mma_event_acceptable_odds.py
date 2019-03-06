@@ -4,23 +4,8 @@ import re
 from colored_printing import *
 import json
 
-#TODO: Add get date in MMAEvent
 
-
-
-
-
-
-def average(lst):
-	if(lst):
-		try:
-			return sum(lst) / len(lst)
-		except:
-			printError("average(lst error with lst ==".format(lst))
-	else:
-		return 0
-
-class MMAEvent:
+class BetMMATipsEvent:
 	def __init__(self, betMMAUrl):
 		# self.htmlPage = requests.get("https://www.betmma.tips/free_ufc_betting_tips.php?Event=444")
 
@@ -57,21 +42,21 @@ class MMAEvent:
 	def getEventDictionary(self):	
 		fighterAvgAcceptableOddsDict = []
 		for t in range(1, len(self.fighterTables)):
-			fight = UserBets(self.fighterTables[t])
+			fighter = BetMMATipsFighterTable(self.fighterTables[t])
 
 
 			if not t % 2:
-				if fight.fighterName != None:
+				if fighter.fighterName != None:
 					# print "fight != None:", fight
-					fighterPair.append({fight.fighterName: fight.acceptableOdds})
+					fighterPair.append({fighter.fighterName: fighter.acceptableOdds})
 				else:
 					# print "fight == None:", fight
 					fighterPair.append(None)
 				fighterAvgAcceptableOddsDict.append(fighterPair)
 			else:
 				fighterPair = []
-				if fight.fighterName != None:
-					fighterPair.append({fight.fighterName: fight.acceptableOdds})
+				if fighter.fighterName != None:
+					fighterPair.append({fighter.fighterName: fighter.acceptableOdds})
 				else:
 					fighterPair.append(None)
 		return fighterAvgAcceptableOddsDict
@@ -84,7 +69,7 @@ class MMAEvent:
 			print f
 
 
-class UserBets():
+class BetMMATipsFighterTable():
 	"""
 			Class for bets on one fighter from the free picks on betmma.tips
 			Most important output is getAcceptableOdds
@@ -264,60 +249,12 @@ class UserBets():
 					print "UnocodeEncodeERROR with\nitem = {}, odds: {}".format(item.encode("utf8"), self.oddsDict[item])
 
 
-#TODO:####### FUNCTIONS BELOW THIS LINE MIGHT NEED TO BE REOMVED / REVISITED ###################################################################################
-	
 
-
-
-
-
-
-
-
-
-
-
-	
-
-
-
-
-###########	FUNCTION GRAVEYARD 	#############################################################################################################################################
-	# def userProfit(self, username):
-	# 	rawTextTable = str(self.fight).split("<br><br>")[0]
-	# 	a_tags = BeautifulSoup(rawTextTable, 'html.parser').find_all('a')
-
-	# 	if a_tags:
-	# 		imgTags = a_tags[0].parent.find_all("img")
-	# 		for t in range (0, len(a_tags)):
-	# 			if username in a_tags[t].get_text().encode("utf8"):
-	# 				profit = parseProfitString(imgTags[t].get("title"))
-	# 				return profit
-	# 	else:
-	# 		printError("getAllUserProfits empty a_tags with a_tags = {}".format(a_tags))
-	# 		return None
-
-
-	# def getQualifiedUsers(self):
-	# 	minimumProfits = 25
-	# 	qualifiedUsers = []
-	# 	for user in self.userProfits:
-	# 		if self.userProfits[user] >= minimumProfits:
-	# 			qualifiedUsers.append(user)
-	# 	return qualifiedUsers
-
-
-
-
-
-# event = MMAEvent("https://www.betmma.tips/free_ufc_betting_tips.php?Event=436")
-# # event.printEvent()
-
-# # printPretty(event.eventDictionary)
-
-
-# file = MMAEventFileHandler("acceptable_odds.json")
-# file.write(event.eventDictionary)
-
-
-	
+def average(lst):
+	if(lst):
+		try:
+			return sum(lst) / len(lst)
+		except:
+			printError("average(lst error with lst ==".format(lst))
+	else:
+		return 0

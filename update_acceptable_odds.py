@@ -1,17 +1,11 @@
-
-
 from mma_event_acceptable_odds import *
-
 from json_file_handler import JsonFileHandler
-
-
-
 
 def update_acceptable_odds(file_name):
 
 	for event_url in get_free_betting_tip_urls():
 
-		event = MMAEvent(event_url)
+		event = BetMMATipsEvent(event_url)
 
 		print(event.eventDictionary)
 

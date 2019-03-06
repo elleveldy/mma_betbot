@@ -2,8 +2,6 @@ from pinnacle_client import PinnacleClient
 from colored_printing import *
 from json_file_handler import JsonFileHandler
 
-
-
 username = "ED974228"
 password = "#B0tSw4g9"
 
