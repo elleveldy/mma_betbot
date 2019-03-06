@@ -62,11 +62,11 @@ class BetMMATipsEvent:
 		return fighterAvgAcceptableOddsDict
 
 	def printEvent(self):
-		print "self.eventDictionary:"
-		print "eventName = {}".format(self.eventDictionary["name"])
-		print self.eventDictionary
+		print ("self.eventDictionary:")
+		print ("eventName = {}".format(self.eventDictionary["name"]))
+		print (self.eventDictionary)
 		for f in self.eventDictionary["fights"]:
-			print f
+			print (f)
 
 
 class BetMMATipsFighterTable():
@@ -116,7 +116,6 @@ class BetMMATipsFighterTable():
 					userProfit = self.userProfit(username)
 					odds = self.parsebetString(betString)
 					oddsDictionary[username] = {"profit": userProfit, "odds": odds}
-
 		if(oddsDictionary):
 			return oddsDictionary
 		else:
@@ -160,15 +159,22 @@ class BetMMATipsFighterTable():
 			if "profit" in profitString:
 				nrUnits = profitString.split(' ')[2]
 				# printGreen("parseProfitprofitString with profitString = {}, nrUnits = {}".format(profitString, nrUnits))
-				return int(nrUnits)
-			if "Handicapper has a loss of" in profitString:
+				# return int(nrUnits)
+			elif "Handicapper has a loss of" in profitString:
 				nrUnits = profitString.split(' ')[5]
 				# printBlue("parseProfitString with profitString = {}, nrUnits = {}".format(profitString, nrUnits))
-				return int(nrUnits)
-			if str("Handicapper has a slight loss of") in str(profitString):
+				# return int(nrUnits)
+			elif str("Handicapper has a slight loss of") in str(profitString):
 				nrUnits = profitString.split(' ')[6]
 				# printYellow("parseProfitString with profitString = {}, nrUnits = {}".format(profitString, nrUnits))
-				return int(nrUnits)
+				# return int(nrUnits)
+			elif "New handicapper" in profitString:
+				nrUnits = 0
+			else:
+				printYellow("parseProfitString warning: Unknown parse case with string: {}".format(profitString))
+				nrUnits = 0
+			return str(nrUnits)
+
 		except:
 			printError("Error in parseProfitString...")
 			raise
@@ -192,7 +198,7 @@ class BetMMATipsFighterTable():
 		a_tags = BeautifulSoup(rawTextTable, 'html.parser').find_all('a')
 		if not a_tags:
 			printError("getAllUserProfits empty a_tags with a_tags = {}".format(a_tags))
-			return None
+			return "0"
 		imgTags = a_tags[0].parent.find_all("img")
 		handicapperBetDict = {}
 		for t in range (0, min(len(a_tags), len(imgTags))):
@@ -201,7 +207,10 @@ class BetMMATipsFighterTable():
 				profit = self.parseProfitString(imgTags[t].get("title"))
 			except IndexError:
 				print("IndexError: fighter name = {}\nimg len {}, a len{}".format(self.fighterName, len(imgTags), len(a_tags)))
-			handicapperBetDict[userName] = profit
+				profit = "0"
+			# if not profit:
+				# printError("getAllUserProfits profit = {}".format(profit))
+			handicapperBetDict[userName] = str(profit)
 		return handicapperBetDict
 
 
@@ -209,7 +218,7 @@ class BetMMATipsFighterTable():
 		"""
 				Checks if the string suggests the bet we're checking is a straight pick or not
 		"""
-		string = string.encode("utf8")
+		string = string
 		if("decision" in string or "round" in string or "KO" in string or "wins" in string):
 			# printBlue("isStraightPick returning false with string = {}".format(string))
 			return False
@@ -240,13 +249,13 @@ class BetMMATipsFighterTable():
 			return True
 		else:
 			return False
-
+			
 	def printFighterOdds(self):
 			for item in self.oddsDict:
 				try:
-					print "\t{}: odds: {}".format(item, self.oddsDict[item])
+					print ("\t{}: odds: {}".format(item, self.oddsDict[item]))
 				except UnicodeEncodeError:
-					print "UnocodeEncodeERROR with\nitem = {}, odds: {}".format(item.encode("utf8"), self.oddsDict[item])
+					print ("UnocodeEncodeERROR with\nitem = {}, odds: {}".format(item.encode("utf8"), self.oddsDict[item]))
 
 
 

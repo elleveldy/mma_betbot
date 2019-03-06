@@ -1,12 +1,44 @@
-from mma_pinnacle_client import *
-from mma_event_file_handler import MMAEventFileHandler
+# from mma_pinnacle_client import *
+# from bet_mma_tips_events import *
 from colored_printing import *
+from update_acceptable_odds import update_acceptable_odds
+# import execnet
 
-mma_picks_file_name = "test_file_nr_2.json"
+# def call_python_version(Version, Module, Function, ArgumentList):
+#     gw      = execnet.makegateway("popen//python=python%s" % Version)
+#     channel = gw.remote_exec("""
+#         from %s import %s as the_function
+#         channel.send(the_function(*channel.receive()))
+#     """ % (Module, Function))
+#     channel.send(ArgumentList)
+#     return channel.receive()
 
-mma_picks_file = JsonFileHandler(mma_picks_file_name)
+# def Update_odds_file(filename):
+# 	call_python_version("2.7", "update_acceptable_odds", "update_acceptable_odds", filename, [])
 
-mma_picks = mma_picks_file.read()
+
+
+
+import subprocess
+
+
+def update_odds_file(filename):
+		
+	python3_command = "update_acceptable_odds.py {}".format(filename)  # launch your python2 script using bash
+
+	process = subprocess.Popen(python3_command.split(), stdout=subprocess.PIPE)
+	output, error = process.communicate()  # receive output from the python2 script
+
+
+
+
+acceptable_odds_file_name = "acceptable_odds.txt"
+
+Update_odds_file(acceptable_odds_file_name)
+
+acceptable_odds_file = JsonFileHandler(acceptable_odds_file_name)
+
+acceptable_odds = mma_picks_file.read()
 
 printPretty(mma_picks)
 

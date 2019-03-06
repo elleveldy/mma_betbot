@@ -26,7 +26,7 @@ def get_free_betting_tip_urls():
 
 	for element in lookup_table[1:len(lookup_table)]:
 
-	 	td_tag_list = element.find_all("td")
+		td_tag_list = element.find_all("td")
 		event_dict = {}
 
 		event_dict["dict"] = td_tag_list[0].get_text()
@@ -43,4 +43,4 @@ def get_free_betting_tip_urls():
 
 
 
-update_acceptable_odds("events4.txt")
+update_acceptable_odds("acceptable_odds_py3.txt")
