@@ -1,4 +1,4 @@
-from bet_mma_tips_events import * BetMMATipsEvent
+from bet_mma_tips_events import *
 from json_file_handler import JsonFileHandler
 
 def update_acceptable_odds(file_name):
