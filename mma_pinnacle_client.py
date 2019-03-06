@@ -1,17 +1,16 @@
 from pinnacleClient import PinnacleClient
+from colored_printing import *
+
+from mma_event_file_handler import JsonFileHandler
 
 import json
 
 username = "ED974228"
 password = "#B0tSw4g9"
 
+#TODO: Edit the get functions such that they utilize the since paramter.
 
-
-def pprint(string):
-	print(json.dumps(string, indent=4, sort_keys=True))
-
-
-class MMAClient(PinnacleClient):
+class MMAPinnacleClient(PinnacleClient):
 	def __init__(self, username, password):
 		PinnacleClient.__init__(self, username, password)
 
@@ -47,7 +46,7 @@ class MMAClient(PinnacleClient):
 						return event["id"]
 		return None
 
-	def mma_fighter_home_or_away(self, league_id, fighter_name):
+	def mma_get_fighter_team(self, league_id, fighter_name):
 		if self.fixtures:
 			pass
 		else:
@@ -60,11 +59,6 @@ class MMAClient(PinnacleClient):
 						return "home"
 					if fighter_name in event["away"]:
 						return "away"
-
-
-
-
-
 
 #############  UTILIZE ODDS INSTEAD OF FIXTURES BELOW ####################################################################
 
@@ -89,7 +83,7 @@ class MMAClient(PinnacleClient):
 				return event["periods"][0]["lineId"]
 		return None
 
-	def mma_get_line_odds(self, league_id, event_id, line_id, home_or_away):
+	def mma_get_line_odds(self, league_id, event_id, line_id, team):
 		"""
 				For now only accepts moneyline bets,
 				if we want other kinds of bets, we need to add
@@ -106,14 +100,64 @@ class MMAClient(PinnacleClient):
 				for event in league["events"]:
 					if event_id == event["id"]:
 						if line_id == event["periods"][0]["lineId"]:
-							return event["periods"][0]["moneyline"][home_or_away]
+							return event["periods"][0]["moneyline"][team]
 		return None
 
 
 
+##########################################################################################################################
+
+	
 
 
-client = MMAClient(username, password)
+
+##########################################################################################################################
+
+	def mma_get_bet(self, league_name, fighter_name):
+
+		"""
+			This function currently only supports moneyline bets at "period": 0
+		"""
+		league_id = self.mma_get_league_id(league_name)
+		fighter_event_id = self.mma_get_event_id(league_id, fighter_name)
+		fighter_team = self.mma_get_fighter_team(ufc_id, fighter_name)
+		fighter_line_id = self.mma_get_line_id(league_id, fighter_event_id)
+		fighter_odds = self.mma_get_line_odds(ufc_id, fighter_event_id, fighter_line_id, fighter_team)
+		mma_bet = {
+			"leagueName": league_name,
+			"fighterName": fighter_name,
+			"eventId": fighter_event_id,
+			"lineId": fighter_line_id,
+			"team": fighter_team,
+			"odds": fighter_odds
+		}
+		return mma_bet
+
+	def mma_place_bet(self, mma_bet, stake):
+		"""
+			This function currently only supports moneyline bets at "period": 0
+
+			mma_bet_format = {
+				"eventId": "123123123",
+				"lineId": "123123123",
+				"team":	"home"
+			}
+
+		"""
+
+		pinnacle_client_bet = {
+			"eventId":str(int(mma_bet['eventId'])),            
+			"lineId":str(int(mma_bet['lineId'])),
+			"team":str(mma_bet['team']),	#Team1 or Team2
+			"stake": str(float(stake)),
+
+			"sportId": str(self.sports_id),
+			"periodNumber": "0",
+			"betType": "moneyline",
+		}
+		self.place_bet(pinnacle_client_bet, stake)
+
+client = MMAPinnacleClient(username, password)
 
 print("mma id == {}".format(client.sports_id))
 mma_leagues = client.mma_get_leagues()
@@ -125,17 +169,26 @@ bellator_id = client.mma_get_league_id("Bellator")
 # odds = client.mma_get_odds()
 # pprint(odds)
 
-fixtures = client.mma_get_fixtures()
-pprint(fixtures)
+odds = client.mma_get_odds()
+printPretty(odds)
 
 jds_event_id = client.mma_get_event_id(ufc_id, "Junior Dos Santos")
-jds_home_away = client.mma_fighter_home_or_away(ufc_id, "Junior Dos Santos")
+jds_team = client.mma_get_fighter_team(ufc_id, "Junior Dos Santos")
 jds_line_id = client.mma_get_line_id(ufc_id, jds_event_id)
-jds_odds = client.mma_get_line_odds(ufc_id, jds_event_id, jds_line_id, jds_home_away)
+jds_odds = client.mma_get_line_odds(ufc_id, jds_event_id, jds_line_id, jds_team)
 
 
 print("eventid for JDS = ", jds_event_id)
-print("home or away for JDS = ", jds_home_away)
+print("home or away for JDS = ", jds_team)
 print("lineId for JDS = ", jds_line_id)
 print("line odds for JDS = ", jds_odds)
+
+mma_bet = client.mma_get_bet("UFC", "Lewis")
+
+placed_bets_file = JsonFileHandler("placed_bets2.json")
+
+placed_bets_file.write(mma_bet)
+
+printYellow("bet:\n{}".format(mma_bet))
+
 

@@ -1,0 +1,426 @@
+[
+    {
+        "date": "", 
+        "fights": [
+            [
+                {
+                    "dos": 1.45
+                }, 
+                {
+                    "Lewis": 2.9825
+                }
+            ], 
+            [
+                {
+                    "Zaleski": 0.0
+                }, 
+                {
+                    "Millender": 1.925
+                }
+            ], 
+            [
+                {
+                    "Dariush": 1.5766666666666669
+                }, 
+                {
+                    "Dober": 0.0
+                }
+            ], 
+            [
+                {
+                    "Rothwell": 2.1466666666666665
+                }, 
+                {
+                    "Ivanov": 0.0
+                }
+            ], 
+            [
+                {
+                    "Price": 2.69
+                }, 
+                {
+                    "Means": 1.5433333333333337
+                }
+            ], 
+            [
+                {
+                    "Martin": 1.5566666666666666
+                }, 
+                {
+                    "Moraes": 0.0
+                }
+            ], 
+            [
+                {
+                    "Smolka": 1.9949999999999997
+                }, 
+                {
+                    "Schnell": 2.6
+                }
+            ], 
+            [
+                {
+                    "White": 0.0
+                }, 
+                {
+                    "Moret": 2.5
+                }
+            ], 
+            [
+                {
+                    "Reneau": 0.0
+                }, 
+                {
+                    "Kunitskaya": 1.61
+                }
+            ], 
+            [
+                {
+                    "Boetsch": 2.3975
+                }, 
+                {
+                    "Akhmedov": 1.71
+                }
+            ], 
+            [
+                {
+                    "Morono": 1.48
+                }, 
+                {
+                    "Ottow": 2.8
+                }
+            ], 
+            [
+                null, 
+                {
+                    "Hughes": 0.0
+                }
+            ], 
+            [
+                {
+                    "Dawson": 1.53
+                }, 
+                {
+                    "Erosa": 0.0
+                }
+            ]
+        ], 
+        "name": " UFC Fight Night 146", 
+        "organization": "UFC"
+    }, 
+    {
+        "date": "", 
+        "fights": [
+            [
+                {
+                    "Till": 1.4933333333333334
+                }, 
+                {
+                    "Masvidal": 0.0
+                }
+            ], 
+            [
+                {
+                    "Edwards": 0.0
+                }, 
+                {
+                    "Nelson": 0.0
+                }
+            ], 
+            [
+                null, 
+                {
+                    "Reyes": 0.0
+                }
+            ], 
+            [
+                {
+                    "Cachoeira": 0.0
+                }, 
+                null
+            ], 
+            [
+                null, 
+                {
+                    "Quinonez": 0.0
+                }
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                {
+                    "Heinisch": 0.0
+                }
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                {
+                    "Silva": 0.0
+                }, 
+                {
+                    "Roberts": 0.0
+                }
+            ], 
+            [
+                null, 
+                {
+                    "Rinaldi": 0.0
+                }
+            ], 
+            [
+                null, 
+                {
+                    "Grundy": 0.0
+                }
+            ], 
+            [
+                {
+                    "Henry": 0.0
+                }, 
+                null
+            ]
+        ], 
+        "name": " UFC Fight Night 147", 
+        "organization": "UFC"
+    }, 
+    {
+        "date": "", 
+        "fights": [
+            [
+                {
+                    "Thompson": null
+                }, 
+                {
+                    "Pettis": 0.0
+                }
+            ], 
+            [
+                {
+                    "Blaydes": 0.0
+                }, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                {
+                    "Haqparast": 0.0
+                }
+            ], 
+            [
+                {
+                    "Formiga": 0.0
+                }, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ]
+        ], 
+        "name": " UFC Fight Night 148", 
+        "organization": "UFC"
+    }, 
+    {
+        "date": "", 
+        "fights": [
+            [
+                null, 
+                {
+                    "Gaethje": 2.2
+                }
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                {
+                    "da": 0.0
+                }, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                {
+                    "Alcalde": 0.0
+                }
+            ]
+        ], 
+        "name": " UFC on ESPN 2", 
+        "organization": "UFC"
+    }, 
+    {
+        "date": "", 
+        "fights": [
+            [
+                {
+                    "Holloway": 0.0
+                }, 
+                null
+            ], 
+            [
+                {
+                    "Gastelum": 0.0
+                }, 
+                {
+                    "Adesanya": 1.5
+                }
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                {
+                    "Anders": 0.0
+                }, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ]
+        ], 
+        "name": " UFC 236", 
+        "organization": "UFC"
+    }, 
+    {
+        "date": "", 
+        "fights": [
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ]
+        ], 
+        "name": " UFC on ESPN 3", 
+        "organization": "UFC"
+    }, 
+    {
+        "date": "", 
+        "fights": [
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ]
+        ], 
+        "name": " UFC Fight Night 150", 
+        "organization": "UFC"
+    }, 
+    {
+        "date": "", 
+        "fights": [
+            [
+                {
+                    "Namajunas": 0.0
+                }, 
+                {
+                    "Andrade": 1.97
+                }
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ], 
+            [
+                null, 
+                null
+            ]
+        ], 
+        "name": " UFC 237", 
+        "organization": "UFC"
+    }
+]

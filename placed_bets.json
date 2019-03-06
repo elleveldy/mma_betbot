@@ -1,0 +1,24 @@
+[
+    {
+        "eventId": 956682657,
+        "lineId": 672664966,
+        "odds": 1.49,
+        "team": "away"
+    },
+    {
+        "eventId": 956682657,
+        "fighterName": "Junior Dos Santos",
+        "leagueName": "UFC",
+        "lineId": 672664966,
+        "odds": 1.49,
+        "team": "away"
+    },
+    {
+        "eventId": null,
+        "fighterName": "Lewis",
+        "leagueName": "UFC",
+        "lineId": null,
+        "odds": null,
+        "team": "home"
+    }
+]
