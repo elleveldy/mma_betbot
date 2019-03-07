@@ -1,6 +1,6 @@
 from pinnacle_client import PinnacleClient
 from colored_printing import *
-from json_file_handler import JsonFileHandler, file_get_password, file_get_username
+# from json_file_handler import JsonFileHandler, file_get_password, file_get_username
 
 
 #TODO: Edit the get functions such that they utilize the since paramter.
@@ -16,6 +16,34 @@ class MMAPinnacleClient(PinnacleClient):
 		self.odds = None
 
 		self.fixtures = None
+		#Economic parameters ##############################################################
+		self.balance = self.get_balance()
+		self.available_balance = self.balance["availableBalance"]	
+		self.outstanding_transactions = self.balance["outstandingTransactions"]
+		self.total_balance = self.available_balance + self.outstanding_transactions	
+		self.unit_fraction = 0.05
+		self.one_unit = round(self.total_balance * self.unit_fraction, 2)
+		###################################################################################
+
+	def mma_update_economic_status(self):
+		self.balance = self.get_balance()
+		self.available_balance = self.balance["availableBalance"]
+		self.outstanding_transactions = self.balance["outstandingTransactions"]
+		self.total_balance = self.available_balance + self.outstanding_transactions 
+		self.one_unit = round(self.total_balance * self.unit_fraction, 2)
+
+	def mma_print_economic_status(self):
+		self.mma_update_economic_status()
+		printBlue("******************************************************************")
+		printBlue("MMAPinnacleClient economic status:\nBalance = {}".format(self.balance))
+
+		printBlue("self.available_balance = {}".format(self.available_balance))
+		printBlue("self.outstanding_transactions = {}".format(self.outstanding_transactions))
+		printBlue("self.total_balance = {}".format(self.total_balance))
+		printBlue("self.one_unit = {}".format(self.one_unit))
+
+		printBlue("******************************************************************")
+
 
 	def mma_get_leagues(self):
 		return self.get_leagues(self.sports_id)
@@ -62,6 +90,11 @@ class MMAPinnacleClient(PinnacleClient):
 		# printPretty(odds)
 		return odds
 
+	def mma_update_odds(self):
+		since = self.odds["since"]
+		odds_since = self.get_odds(self.sports_id, oddsFormat = "Decimal", since = since)
+		printPretty(odds_since)
+		return odds_since
 
 	def mma_get_line_id(self, league_id, event_id):
 		"""
@@ -175,9 +208,6 @@ class MMAPinnacleClient(PinnacleClient):
 # ufc_id = client.mma_get_league_id("UFC")
 # bellator_id = client.mma_get_league_id("Bellator")
 
-
-# # odds = client.mma_get_odds()
-# # pprint(odds)
 
 # odds = client.mma_get_odds()
 # printPretty(odds)

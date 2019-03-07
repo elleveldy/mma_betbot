@@ -1,11 +1,13 @@
 
 from colored_printing import *
 import json
-
-
+from threading import Lock
 
 class JsonFileHandler():
 	def __init__(self, filename):
+
+		# self.lock = Lock()
+
 		self.filename = filename
 		try:
 			file = open(str(self.filename),"r")
@@ -17,8 +19,9 @@ class JsonFileHandler():
 			file.close()
 
 	def read(self):
-		file = open(str(self.filename),"r")
+		# self.lock.acquire() 
 		try:
+			file = open(str(self.filename),"r")
 			file_content = json.load(file)
 			file.close()
 		except IOError:
@@ -29,18 +32,21 @@ class JsonFileHandler():
 		except ValueError:
 			file_content = []
 			file.close()
+
+		# self.lock.release()
 		return file_content
 
 	def write(self, element):
-
+		# self.lock.acquire() 
 		file_content = self.read()
 		try:
 			if element not in file_content:
 				file_content.append(element)
 
-			with open(str(self.filename), 'w') as file:
-				json.dump(file_content, file, indent=4, sort_keys=True)	
-
+			# with open(str(self.filename), 'w') as file:
+			# 	json.dump(file_content, file, indent=4, sort_keys=True)	
+			file = open(str(self.filename), "w")
+			json.dump(file_content, file, indent=4, sort_keys=True)
 			file.close()
 
 			return True
@@ -48,13 +54,11 @@ class JsonFileHandler():
 		except KeyError:
 			printError("MMAelementFileHandler.write(element) KeyError with element = {}".format(element))
 			return False
-		try:
-			with open(str(self.filename), 'w') as file:
-				json.dump(file_content, file, indent=4, sort_keys=True)
 		except TypeError:
 			printError("MMAelementFileHandler TypeError with file_content == {}".format(file_content))
 			return False
 		file.close()
+		# self.lock.release()
 
 	def has_element(self, element):
 		file_content = self.read()
@@ -62,9 +66,10 @@ class JsonFileHandler():
 			return True
 		else:
 			return False
-
-
-
+			
+# def AccountFileHandler(JsonFileHandler):
+# 	def __init__(self, filename):
+# 		JsonFileHandler.__init__(self, filename)
 
 def file_get_username(filename):
 	try:
@@ -105,3 +110,29 @@ def file_generate(filename):
 	print("password successfully generated continuing program with username and password")
 	print("file content = ", file_content)
 	return file_content
+
+
+
+
+
+class BetLogFile(JsonFileHandler):
+	def __init__(self, filename):
+		JsonFileHandler.__init__(self, filename)	
+
+	def has_bet(self, new_bet):
+		bets = self.read()
+		for placed_bet in bets:
+			if new_bet["lineId"] == placed_bet["lineId"] and new_bet["team"] == placed_bet["team"]:
+				return True
+		return False
+
+	def find(self, placed_bet):
+		bet_log = self.read()
+		placed_bet_list = []
+		for bet in bet_log:
+			if bet["lineId"] == placed_bet["lineId"] and bet["team"] == placed_bet["team"]:
+				placed_bet_list.append(bet)
+		if placed_bet_list:
+			return placed_bet_list
+		else:
+			return False

@@ -69,8 +69,6 @@ class PinnacleClient():
 		if(oddsFormat): url = url + "&oddsFormat=" + str(oddsFormat)    
 		if(eventIds): url = url + "&eventIds=" + str(eventIds)
 		if(leagueIds): url = url + "&leagueIds=" + str(leagueIds)
-		print("get_odds\n leagueIds: ", url)
-
 		return http_get(url, headers=self.getHeaders)
 
 	def place_bet(self, bet, stake):

@@ -43,4 +43,4 @@ def get_free_betting_tip_urls():
 
 
 
-update_acceptable_odds("acceptable_odds_py9.txt")
+# update_acceptable_odds("acceptable_odds_py9.txt")
