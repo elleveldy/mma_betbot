@@ -58,7 +58,7 @@ while True:
 
 								bet["stake"] = stake
 								placed_bets.write(bet)
-								# pinnacle.mma_place_bet(bet, stake)
+								pinnacle.mma_place_bet(bet, stake)
 
 								printGreen("**********************************************\nPlaced bet: {}\n***********************************************".format(bet))
 							elif is_significantly_improved_odds(already_placed_bets, bet): 
@@ -68,6 +68,7 @@ while True:
 								printBlue("New bet: {}".format(bet))
 
 								bet["stake"] = stake * 0.6
+								pinnacle.mma_place_bet(bet, stake)
 							else:
 								printError("Bet, {}\nalready in placed_bets.txt".format(bet))
 						else:
