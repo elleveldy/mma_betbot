@@ -21,7 +21,7 @@ def is_bet_worth_it(bet, fighter):
 		return False
 
 def is_hypothetical_arbitrage(fight):
-	printBlue(fight)
+	# printBlue(fight)
 	if not (fight[0] and fight[1]):
 		return False
 	odds_0 = fight[0]["odds"]

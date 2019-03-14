@@ -7,10 +7,10 @@ def update_acceptable_odds(file_name):
 
 		event = BetMMATipsEvent(event_url)
 
-		print(event.eventDictionary)
+		# print(event.eventDictionary)
 
-		file = JsonFileHandler(file_name)
-		file.write(event.eventDictionary)
+		# file = JsonFileHandler(file_name)
+		# file.write(event.eventDictionary)
 
 
 def get_free_betting_tip_urls():

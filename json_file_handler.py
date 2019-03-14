@@ -130,7 +130,7 @@ class BetLogFile(JsonFileHandler):
 		bet_log = self.read()
 		placed_bet_list = []
 		for bet in bet_log:
-			if bet["lineId"] == placed_bet["lineId"] and bet["team"] == placed_bet["team"]:
+			if bet["eventId"] == placed_bet["eventId"] and bet["team"] == placed_bet["team"]:
 				placed_bet_list.append(bet)
 		if placed_bet_list:
 			return placed_bet_list
