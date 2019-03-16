@@ -16,6 +16,7 @@ class MMAPinnacleClient(PinnacleClient):
 		self.odds = None
 
 		self.fixtures = None
+		
 		#Economic parameters ##############################################################
 		self.balance = self.get_balance()
 		self.available_balance = self.balance["availableBalance"]	

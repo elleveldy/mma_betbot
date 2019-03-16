@@ -32,7 +32,9 @@ placed_bets = BetLogFile("placed_bets.txt")
 while True:
 
 	update_acceptable_odds(acceptable_odds_filename)
+
 	stake = pinnacle.one_unit
+
 	acceptable_odds = acceptable_odds_file.read()
 
 	for event in acceptable_odds:
@@ -46,20 +48,11 @@ while True:
 					if(bet):
 
 						if(is_bet_worth_it(bet, fighter)):
-							# printYellow("**************************************************")
-							# printYellow("Fighter worth: {}, with bet:\n{}".format(fighter, bet))
-							# printYellow("**************************************************")
-
-							# print("\t**************************************************")
-							# print("\tSince we found worthy bet, lets check what's up")
-							# print("\tfight = {}, \n\tfighter = {},\n\tbet = {}".format(fight, fighter, bet))	
-							# print("\t**************************************************")
 
 							already_placed_bets = placed_bets.find(bet)
 
 							if not already_placed_bets: 
 
-								printYellow("\t\tBet: {},\n\t\talready placed_bets: {}".format(bet, already_placed_bets))
 								print("\t\tBetlog: ***************************************************************************************************")
 								for bets in placed_bets.read():
 									print("\t\t{}".format(bets))
@@ -67,36 +60,30 @@ while True:
 
 								bet["stake"] = stake
 								placed_bets.write(bet)
-								pinnacle.mma_place_bet(bet, stake)
+								# pinnacle.mma_place_bet(bet, stake)
 
 								printGreen("\t\tPlaced bet: {}".format(bet))
 
 							else:
-								# printYellow("\t\t\t\tBet, {}\n\t\t\t\talready in placed_bets.txt".format(bet))
 
 								if is_significantly_improved_odds(already_placed_bets, bet): 
 
-									# printGreen("\t\t\t\tDetected already placed bet with significantly improved odds!")
-									# printGreen("\t\t\t\tOld bet list: {}".format(already_placed_bets))
-									# printGreen("\t\t\t\tNew bet: {}".format(bet))
+									printGreen("\t\t\t\tDetected already placed bet with significantly improved odds!")
+									printGreen("\t\t\t\tOld bet list: {}".format(already_placed_bets))
+									printGreen("\t\t\t\tNew bet: {}".format(bet))
 
 									bet["stake"] = stake * 0.6
-									pinnacle.mma_place_bet(bet, stake)
+									# pinnacle.mma_place_bet(bet, stake)
 									printGreen("\t\tPlaced bet: {}".format(bet))
 								else:
-									# printError("\t\t\t\tNo significantly improved odds")
 									pass
 						else:
-							# printError("Bet not worth it: {}".format(bet))
 							pass
 					else:
-						# printYellow("no bet")	
 						pass
 				else:
-					#TODO: fix this v
-					# printYellow("Nonefighter in fight (usually means no-one bet on this fighter... Maybe don't add them to dictionary then?)")
 					pass		
 	printBlue("***************************************************************************************************************")	
-	printBlue("\n\n\n\n\n\n\nCycle complete, sleeping for 600 sec (10 min)\n\n\n\n\n\n\n\n")
+	printBlue("Cycle complete, sleeping for 600 sec (10 min)")
 	printBlue("***************************************************************************************************************")	
 	time.sleep(600)

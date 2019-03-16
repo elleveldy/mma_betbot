@@ -44,7 +44,6 @@ def is_significantly_improved_odds(already_placed_bets, new_bet):
 		for old_bet in already_placed_bets:
 			ratio = float(new_bet["odds"] / float(old_bet["odds"]))
 			if not(ratio) >= float(significant_improvement_ratio):
-				printYellow("no significant improvement for: {}".format(new_bet))
 				return False
 		printGreen("Significant improvement detected for {}".format(new_bet))
 		return True
