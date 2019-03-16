@@ -60,8 +60,8 @@ while True:
 
 								bet["stake"] = stake
 								placed_bets.write(bet)
-								# pinnacle.mma_place_bet(bet, stake)
-
+								pinnacle.mma_place_bet(bet, stake)
+								pinnacle.mma_print_economic_status()
 								printGreen("\t\tPlaced bet: {}".format(bet))
 
 							else:
@@ -73,7 +73,7 @@ while True:
 									printGreen("\t\t\t\tNew bet: {}".format(bet))
 
 									bet["stake"] = stake * 0.6
-									# pinnacle.mma_place_bet(bet, stake)
+									pinnacle.mma_place_bet(bet, stake)
 									printGreen("\t\tPlaced bet: {}".format(bet))
 								else:
 									pass

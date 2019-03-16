@@ -210,7 +210,7 @@ class BetMMATipsFighterTable():
 			try:
 				profit = self.parseProfitString(imgTags[t].get("title"))
 			except IndexError:
-				print("IndexError: fighter name = {}\nimg len {}, a len{}".format(self.fighterName, len(imgTags), len(a_tags)))
+				printError("IndexError: fighter name = {}\nimg len {}, a len{}".format(self.fighterName, len(imgTags), len(a_tags)))
 				profit = "0"
 			# if not profit:
 				# printError("getAllUserProfits profit = {}".format(profit))
