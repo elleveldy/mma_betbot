@@ -1,7 +1,7 @@
 from colored_printing import *
 
 
-REQUIRED_ODDS_BENEFIT_MARGIN = 1.00 # == 100%
+REQUIRED_ODDS_BENEFIT_MARGIN = 1.00 	# == 100%
 
 
 
@@ -34,6 +34,9 @@ def is_hypothetical_arbitrage(fight):
 	else:
 		True
 
+def get_odds_ratio(pinnacle_bet, tips_bet):
+	return float(pinnacle_bet["odds"] / float(tips_bet["odds"]))
+
 def is_significantly_improved_odds(already_placed_bets, new_bet):
 	"""
 		checks if a bet that we've already placed, is worth placing again, if odds have improved significantly
@@ -50,3 +53,13 @@ def is_significantly_improved_odds(already_placed_bets, new_bet):
 	except ZeroDivisionError:
 		printError("is_significantly_improved_odds ZeroDivisionError with placed_bet= {},\n new_bet = {}\nRatio = {}".format(palced_bet, new_bet, ratio))
 		return False
+
+def get_stake_ratio(pinnacle_bet, tips_bet):
+	"""
+		Returns the stake ratio to multiply with the bankroll unit for betting.
+		The intention is that bets with better margins will get more investment.	
+	"""
+	ratio_multiplier = 8
+	ratio = get_odds_ratio(pinnacle_bet, tips_bet)
+	return float(ratio - 1) * ratio_multiplier + 1  
+

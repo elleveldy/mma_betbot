@@ -33,6 +33,8 @@ while True:
 
 	update_acceptable_odds(acceptable_odds_filename)
 
+	pinnacle.mma_update_economic_status()
+
 	stake = pinnacle.one_unit
 
 	acceptable_odds = acceptable_odds_file.read()
@@ -57,7 +59,7 @@ while True:
 								for bets in placed_bets.read():
 									print("\t\t{}".format(bets))
 								print("\t\tBetlog: ***************************************************************************************************")
-
+								stake = pinnacle.one_unit * get_stake_ratio(bet, fighter)
 								bet["stake"] = stake
 								placed_bets.write(bet)
 								pinnacle.mma_place_bet(bet, stake)
@@ -71,9 +73,11 @@ while True:
 									printGreen("\t\t\t\tDetected already placed bet with significantly improved odds!")
 									printGreen("\t\t\t\tOld bet list: {}".format(already_placed_bets))
 									printGreen("\t\t\t\tNew bet: {}".format(bet))
-
-									bet["stake"] = stake * 0.6
+									stake = pinnacle.one_unit * get_stake_ratio(bet, fighter)
+									bet["stake"] = stake * 0.5
+									placed_bets.write(bet)
 									pinnacle.mma_place_bet(bet, stake)
+									pinnacle.mma_print_economic_status()
 									printGreen("\t\tPlaced bet: {}".format(bet))
 								else:
 									pass
