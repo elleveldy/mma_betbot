@@ -63,3 +63,4 @@ def get_stake_ratio(pinnacle_bet, tips_bet):
 	ratio = get_odds_ratio(pinnacle_bet, tips_bet)
 	return float(ratio - 1) * ratio_multiplier + 1  
 
+	

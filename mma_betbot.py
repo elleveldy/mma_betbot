@@ -28,16 +28,17 @@ acceptable_odds_filename = "odds_file.txt"
 acceptable_odds_file = JsonFileHandler(acceptable_odds_filename)
 placed_bets = BetLogFile("placed_bets.txt")
 
+acceptable_odds = update_acceptable_odds()
+
+printPretty(acceptable_odds)
 
 while True:
-
-	update_acceptable_odds(acceptable_odds_filename)
+	
+	acceptable_odds = update_acceptable_odds()
 
 	pinnacle.mma_update_economic_status()
 
 	stake = pinnacle.one_unit
-
-	acceptable_odds = acceptable_odds_file.read()
 
 	for event in acceptable_odds:
 		for fight in event["fights"]:
@@ -45,6 +46,7 @@ while True:
 			for fighter in fight:
 
 				if fighter:
+
 					bet = pinnacle.mma_get_bet(event["organization"], fighter["name"])
 
 					if(bet):
@@ -59,11 +61,12 @@ while True:
 								for bets in placed_bets.read():
 									print("\t\t{}".format(bets))
 								print("\t\tBetlog: ***************************************************************************************************")
+
 								stake = pinnacle.one_unit * get_stake_ratio(bet, fighter)
 								bet["stake"] = stake
 								placed_bets.write(bet)
 								pinnacle.mma_place_bet(bet, stake)
-								pinnacle.mma_print_economic_status()
+								
 								printGreen("\t\tPlaced bet: {}".format(bet))
 
 							else:
@@ -73,11 +76,15 @@ while True:
 									printGreen("\t\t\t\tDetected already placed bet with significantly improved odds!")
 									printGreen("\t\t\t\tOld bet list: {}".format(already_placed_bets))
 									printGreen("\t\t\t\tNew bet: {}".format(bet))
-									stake = pinnacle.one_unit * get_stake_ratio(bet, fighter)
-									bet["stake"] = stake * 0.5
+
+									stake = placed_bets.get_lowest_stake(bet) * 0.5
+									if stake > pinnacle.one_unit * 0.5:
+										printError("STAKE {}, higher than expected, abort placing bet".format(stake))
+										break
+									bet["stake"] = stake
 									placed_bets.write(bet)
 									pinnacle.mma_place_bet(bet, stake)
-									pinnacle.mma_print_economic_status()
+
 									printGreen("\t\tPlaced bet: {}".format(bet))
 								else:
 									pass
@@ -88,6 +95,7 @@ while True:
 				else:
 					pass		
 	printBlue("***************************************************************************************************************")	
-	printBlue("Cycle complete, sleeping for 600 sec (10 min)")
+	printBlue("Cycle Complete with:")
+	pinnacle.mma_print_economic_status()
 	printBlue("***************************************************************************************************************")	
 	time.sleep(600)

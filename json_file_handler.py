@@ -6,8 +6,6 @@ from threading import Lock
 class JsonFileHandler():
 	def __init__(self, filename):
 
-		# self.lock = Lock()
-
 		self.filename = filename
 		try:
 			file = open(str(self.filename),"r")
@@ -19,7 +17,6 @@ class JsonFileHandler():
 			file.close()
 
 	def read(self):
-		# self.lock.acquire() 
 		try:
 			file = open(str(self.filename),"r")
 			file_content = json.load(file)
@@ -33,18 +30,14 @@ class JsonFileHandler():
 			file_content = []
 			file.close()
 
-		# self.lock.release()
 		return file_content
 
 	def write(self, element):
-		# self.lock.acquire() 
 		file_content = self.read()
 		try:
 			if element not in file_content:
 				file_content.append(element)
 
-			# with open(str(self.filename), 'w') as file:
-			# 	json.dump(file_content, file, indent=4, sort_keys=True)	
 			file = open(str(self.filename), "w")
 			json.dump(file_content, file, indent=4, sort_keys=True)
 			file.close()
@@ -66,53 +59,6 @@ class JsonFileHandler():
 			return True
 		else:
 			return False
-			
-# def AccountFileHandler(JsonFileHandler):
-# 	def __init__(self, filename):
-# 		JsonFileHandler.__init__(self, filename)
-
-def file_get_username(filename):
-	try:
-		file = open(str(filename),"r")
-		file_content = json.load(file)
-		username = file_content["username"]
-		file.close()
-		return password
-	except:
-		print("file_get_password IOError {} probably not found".format(filename))
-		username = file_generate(filename)["username"]
-		return username
-
-def file_get_password(filename):
-	try:
-		file = open(str(filename),"r")			
-		file_content = json.load(file)
-		print(file_content)
-		password = file_content["password"]
-		file.close()
-		return password
-	except:
-		print("file_get_password IOError {} probably not found".format(filename))
-		password = file_generate(filename)["password"]
-		return password
-
-def file_generate(filename):
-	print("Couldn't find account_info.txt file, creating one now...")
-	file_content = {
-		"username": "ED974228",
-		"password": "#B0tSw4g9"
-	}
-	# username = input("Type username and press enter...")	
-	# password = input("Type password and press enter...")
-	with open(str(filename), 'w') as file:
-		json.dump(file_content, file, indent=4, sort_keys=True)	
-	file.close()
-	print("password successfully generated continuing program with username and password")
-	print("file content = ", file_content)
-	return file_content
-
-
-
 
 
 class BetLogFile(JsonFileHandler):
@@ -136,3 +82,54 @@ class BetLogFile(JsonFileHandler):
 			return placed_bet_list
 		else:
 			return False
+
+	def get_lowest_stake(self, new_bet):
+		placed_bets = self.find(new_bet)
+		if placed_bets:
+			lowest_stake = 100
+			for bet in placed_bets:
+				lowest_stake = min(lowest_stake, bet["stake"])	
+		return lowest_stake
+
+			
+def file_get_username(filename):
+	try:
+		file = open(str(filename),"r")
+		file_content = json.load(file)
+		username = file_content["username"]
+		file.close()
+		return username
+	except IOError:
+		raise
+		print("file_get_password IOError {} probably not found".format(filename))
+		username = file_generate(filename)["username"]
+		return username
+
+def file_get_password(filename):
+	try:
+		file = open(str(filename),"r")			
+		file_content = json.load(file)
+		print(file_content)
+		password = file_content["password"]
+		file.close()
+		return password
+	except IOError:
+		raise
+		print("file_get_password IOError {} probably not found".format(filename))
+		password = file_generate(filename)["password"]
+		return password
+
+
+def file_generate(filename):
+	print("Couldn't find account_info.txt file, creating one now...")
+	username = input("Type username and press enter...")	
+	password = input("Type password and press enter...")
+	with open(str(filename), 'w') as file:
+		json.dump(file_content, file, indent=4, sort_keys=True)	
+	file.close()
+	print("password successfully generated continuing program with username and password")
+	print("file content = ", file_content)
+	return file_content
+
+
+

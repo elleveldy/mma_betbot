@@ -1,17 +1,15 @@
 from bet_mma_tips_events import *
 from json_file_handler import JsonFileHandler
 
-def update_acceptable_odds(file_name):
-
+def update_acceptable_odds():
+	event_list = []
 	for event_url in get_free_betting_tip_urls():
 
 		event = BetMMATipsEvent(event_url)
 
-		# print(event.eventDictionary)
+		event_list.append(event.eventDictionary)	
 
-		# file = JsonFileHandler(file_name)
-		# file.write(event.eventDictionary)
-
+	return event_list
 
 def get_free_betting_tip_urls():
 	lookup_page_url = "https://www.betmma.tips/mma_betting_tips.php"
