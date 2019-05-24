@@ -58,6 +58,7 @@ class MMAPinnacleClient(PinnacleClient):
 		return self.get_fixtures(self.sports_id)
 
 	def mma_get_event_id(self, league_id, fighter_name):
+		# FIX FIGHTER NAME PARSING
 		if self.fixtures:
 			pass
 		else:
@@ -71,6 +72,7 @@ class MMAPinnacleClient(PinnacleClient):
 		return None
 
 	def mma_get_fighter_team(self, league_id, fighter_name):
+	#FIX FIGHTER NAME PARSING
 		if self.fixtures:
 			pass
 		else:
@@ -197,39 +199,7 @@ class MMAPinnacleClient(PinnacleClient):
 			"period": "0",
 			"betType": "moneyline",
 		}
-		self.place_bet(pinnacle_client_bet, stake)
-
-# username = file_get_username("account_info.txt")
-# password = file_get_password("account_info.txt")
-# client = MMAPinnacleClient(username, password)
-
-# print("mma id == {}".format(client.sports_id))
-# mma_leagues = client.mma_get_leagues()
-
-# ufc_id = client.mma_get_league_id("UFC")
-# bellator_id = client.mma_get_league_id("Bellator")
-
-
-# odds = client.mma_get_odds()
-# printPretty(odds)
-
-# jds_event_id = client.mma_get_event_id(ufc_id, "Junior Dos Santos")
-# jds_team = client.mma_get_fighter_team(ufc_id, "Junior Dos Santos")
-# jds_line_id = client.mma_get_line_id(ufc_id, jds_event_id)
-# jds_odds = client.mma_get_line_odds(ufc_id, jds_event_id, jds_line_id, jds_team)
-
-
-# print("eventid for JDS = ", jds_event_id)
-# print("home or away for JDS = ", jds_team)
-# print("lineId for JDS = ", jds_line_id)
-# print("line odds for JDS = ", jds_odds)
-
-# mma_bet = client.mma_get_bet("UFC", "Lewis")
-
-# placed_bets_file = JsonFileHandler("placed_bets2.txt")
-
-# placed_bets_file.write(mma_bet)
-
-# printYellow("bet:\n{}".format(mma_bet))
+		http_post = self.place_bet(pinnacle_client_bet, stake)
+		return http_post
 
 

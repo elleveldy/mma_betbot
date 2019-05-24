@@ -6,8 +6,8 @@ from json_file_handler import *
 import time
 from bet_evaluation import *
 
-
-
+#Get minimum bet amount from pinnacle?
+MINIMUM_BET_AMOUNT = 12
 
 
 
@@ -24,13 +24,12 @@ pinnacle_odds = pinnacle.mma_get_odds()
 pinnacle.mma_print_economic_status()
 
 
-acceptable_odds_filename = "odds_file.txt"
-acceptable_odds_file = JsonFileHandler(acceptable_odds_filename)
 placed_bets = BetLogFile("placed_bets.txt")
 
-acceptable_odds = update_acceptable_odds()
 
-printPretty(acceptable_odds)
+minute_count = 0
+hour_count = 0
+
 
 while True:
 	
@@ -51,51 +50,50 @@ while True:
 
 					if(bet):
 
-						if(is_bet_worth_it(bet, fighter)):
+						if(is_bet_worth_it(bet, fighter) and is_hypothetical_arbitrage(fight)):
 
 							already_placed_bets = placed_bets.find(bet)
 
 							if not already_placed_bets: 
 
-								print("\t\tBetlog: ***************************************************************************************************")
-								for bets in placed_bets.read():
-									print("\t\t{}".format(bets))
-								print("\t\tBetlog: ***************************************************************************************************")
-
-								stake = pinnacle.one_unit * get_stake_ratio(bet, fighter)
+								stake = max(pinnacle.one_unit * get_stake_ratio(bet, fighter), MINIMUM_BET_AMOUNT)
 								bet["stake"] = stake
-								placed_bets.write(bet)
-								pinnacle.mma_place_bet(bet, stake)
+
+								response = pinnacle.mma_place_bet(bet, stake)
+
+								if response["status"] != "PROCESSED_WITH_ERROR":
+									placed_bets.write(bet)
+								else:
+									printError("Bet placement processed with error...\n{}".format(response))
 								
-								printGreen("\t\tPlaced bet: {}".format(bet))
+								printYellow("Acceptable odds for fighter: \n{}\nPlaced bet: {}".format(fighter, bet))
+								pinnacle.mma_print_economic_status()
+
 
 							else:
 
 								if is_significantly_improved_odds(already_placed_bets, bet): 
 
-									printGreen("\t\t\t\tDetected already placed bet with significantly improved odds!")
-									printGreen("\t\t\t\tOld bet list: {}".format(already_placed_bets))
-									printGreen("\t\t\t\tNew bet: {}".format(bet))
+									printGreen("Detected already placed bet with significantly improved odds!\nOld bet list: {}\nNew bet: {}".format(already_placed_bets, bet))
 
-									stake = placed_bets.get_lowest_stake(bet) * 0.5
-									if stake > pinnacle.one_unit * 0.5:
+									stake = placed_bets.get_lowest_stake(bet) * 0.8
+									if stake > pinnacle.one_unit * 0.8:
 										printError("STAKE {}, higher than expected, abort placing bet".format(stake))
 										break
 									bet["stake"] = stake
-									placed_bets.write(bet)
-									pinnacle.mma_place_bet(bet, stake)
+									response = pinnacle.mma_place_bet(bet, stake)
 
-									printGreen("\t\tPlaced bet: {}".format(bet))
-								else:
-									pass
-						else:
-							pass
-					else:
-						pass
-				else:
-					pass		
-	printBlue("***************************************************************************************************************")	
-	printBlue("Cycle Complete with:")
-	pinnacle.mma_print_economic_status()
-	printBlue("***************************************************************************************************************")	
-	time.sleep(600)
+									if response["status"] != "PROCESSED_WITH_ERROR":
+										placed_bets.write(bet)
+										printGreen("Placed bet: {}".format(bet))
+										pinnacle.mma_print_economic_status()
+									else:
+										printError("Bet placement processed with error...\n{}".format(response))
+
+
+	time.sleep(300)
+	minute_count += 5
+	if(not minute_count % 60):
+		minute_count = 0
+		hour_count += 1
+	print("{} hours and {} minutes have passed".format(hour_count, minute_count))

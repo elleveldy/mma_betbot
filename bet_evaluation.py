@@ -1,7 +1,7 @@
 from colored_printing import *
 
 
-REQUIRED_ODDS_BENEFIT_MARGIN = 1.00 	# == 100%
+REQUIRED_ODDS_BENEFIT_MARGIN = 0.95 	# == 100%
 
 
 
@@ -22,18 +22,21 @@ def is_bet_worth_it(bet, fighter):
 
 def is_hypothetical_arbitrage(fight):
 	# printBlue(fight)
-	if not (fight[0] and fight[1]):
+	try:
+		if not (fight[0] and fight[1]):
+			return False
+		odds_0 = fight[0]["odds"]
+		odds_1 = fight[1]["odds"]
+		if (odds_0 < 1.0) or (odds_1 < 1.0):
+			return False
+		arbitrage = 1 / (1 / odds_0  + 1 / odds_1 )
+		if arbitrage > 1.0:
+			return True
+		else:
+			True
+	except TypeError:
+		printError("is_hypothetical_arbitrage TypeError with fight: {}\nReturning False".format(fight))
 		return False
-	odds_0 = fight[0]["odds"]
-	odds_1 = fight[1]["odds"]
-	if (odds_0 < 1.0) or (odds_1 < 1.0):
-		return False
-	arbitrage = 1 / (1 / odds_0  + 1 / odds_1 )
-	if arbitrage > 1.0:
-		return True
-	else:
-		True
-
 def get_odds_ratio(pinnacle_bet, tips_bet):
 	return float(pinnacle_bet["odds"] / float(tips_bet["odds"]))
 

@@ -5,19 +5,19 @@ import json
 
 def http_get(url, headers):
 	req = ulib.Request(url, headers=headers)
-	print(str(req))
+	# print(str(req))
 	responseData = ulib.urlopen(req).read()
 	balance = json.loads(responseData.decode('utf-8'))
 	return balance
 
 def http_post(url, data, headers):
-	print("attempting http_post with data:\n{},\n headers: {}".format(data,headers))
-	for e in data:
-		print("{}: {}".format(e, data[e]))	
+	# print("attempting http_post with data:\n{},\n headers: {}".format(data,headers))
+	# for e in data:
+	# 	print("{}: {}".format(e, data[e]))	
 	req = ulib.Request(url, headers = headers)
-	print(req)
+	# print(req)
 	response = ulib.urlopen(req, json.dumps(data).encode("utf-8")).read().decode()
-	print(response)
+	# print(response)
 	response = json.loads(response)
-	print(response)
+	# print(response)
 	return response

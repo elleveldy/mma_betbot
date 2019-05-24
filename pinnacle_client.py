@@ -33,7 +33,7 @@ class PinnacleClient():
 		if(betlist): url = url + "betlist=" + str(betlist)
 		if(fromDate): url = url + "&fromDate=" + str(fromDate)    
 		if(toDate): url = url + "&toDate=" + str(toDate)
-		print("*********\nUrl:", url)
+		# print("*********\nUrl:", url)
 		return http_get(url, headers=self.getHeaders)
 
 	def get_balance(self):
@@ -87,7 +87,7 @@ class PinnacleClient():
 				"team":bet['team'],	#Team1 or Team2
 				"oddsFormat":"DECIMAL"
 		}
-		print("pinnacle.place_bet with data: {}".format(data))
+		# print("pinnacle.place_bet with data: {}".format(data))
 		return http_post(url, data = data, headers = self.postHeaders)
 
 	def placeBet(self, sportId, eventId, lineId, period, betType, team, stake):

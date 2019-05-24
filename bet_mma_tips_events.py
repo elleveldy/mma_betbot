@@ -138,6 +138,7 @@ class BetMMATipsFighterTable():
 			return float(average(oddslist))
 		else:
 			printError("getAcceptableOdds with empty oddslist")
+			printBlue("oddslist: \n{}".format(oddslist))
 			return None
 		
 
@@ -146,7 +147,10 @@ class BetMMATipsFighterTable():
 		try:
 			if fighterElement:
 				fighterString = fighterElement.get_text()
-				fighterName = fighterString.split(" ")[1]
+				if len(fighterString.split(" ")) < 5:
+					fighterName = fighterString.split(" ")[1]
+				else:
+					fighterName = fighterString.split(" ")[1] + " " + fighterString.split(" ")[2]
 				return fighterName
 			else:
 				return None
@@ -259,7 +263,7 @@ class BetMMATipsFighterTable():
 				try:
 					print ("\t{}: odds: {}".format(item, self.oddsDict[item]))
 				except UnicodeEncodeError:
-					print ("UnocodeEncodeERROR with\nitem = {}, odds: {}".format(item.encode("utf8"), self.oddsDict[item]))
+					printError ("UnocodeEncodeERROR with\nitem = {}, odds: {}".format(item.encode("utf8"), self.oddsDict[item]))
 
 
 
