@@ -22,7 +22,7 @@ class MMAPinnacleClient(PinnacleClient):
 		self.available_balance = self.balance["availableBalance"]	
 		self.outstanding_transactions = self.balance["outstandingTransactions"]
 		self.total_balance = self.available_balance + self.outstanding_transactions	
-		self.unit_fraction = 0.05
+		self.unit_fraction = 0.1
 		self.one_unit = round(self.total_balance * self.unit_fraction, 2)
 		###################################################################################
 

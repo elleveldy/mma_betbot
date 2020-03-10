@@ -39,6 +39,8 @@ while True:
 
 	stake = pinnacle.one_unit
 
+
+
 	for event in acceptable_odds:
 		for fight in event["fights"]:
 
@@ -77,9 +79,9 @@ while True:
 									printGreen("Detected already placed bet with significantly improved odds!\nOld bet list: {}\nNew bet: {}".format(already_placed_bets, bet))
 
 									stake = placed_bets.get_lowest_stake(bet) * 0.8
-									if stake > pinnacle.one_unit * 0.8:
+									if stake > pinnacle.one_unit:
 										printError("STAKE {}, higher than expected, abort placing bet".format(stake))
-										break
+										continue	
 									bet["stake"] = stake
 									response = pinnacle.mma_place_bet(bet, stake)
 
@@ -97,3 +99,6 @@ while True:
 		minute_count = 0
 		hour_count += 1
 	print("{} hours and {} minutes have passed".format(hour_count, minute_count))
+
+	pinnacle_odds = pinnacle.mma_get_odds()	
+	
