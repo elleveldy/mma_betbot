@@ -1,8 +1,19 @@
 #Ignore text files
+
 *.txt
+
+
 
 #ignore pyc files
 *.pyc
 
+
+*.pyc
+
 #ignore .vscode folder
 
+
+*.vscode
+
+#ignore bat file
+*.bat
