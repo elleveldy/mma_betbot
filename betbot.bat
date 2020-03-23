@@ -1,1 +1,0 @@
-python C:\Users\Erlend\OneDrive\Dokumenter\Code\mma_betbot\mma_betbot.py
